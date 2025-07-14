@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="DirectRemoteWp8.View.FavoritesPopupControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="480">
+    <UserControl.Resources>
+        <Style x:Key="StretchedContainerStyle" TargetType="ListBoxItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <!--<Setter Property="Background" Value="{StaticResource PhoneAccentBrush}" />-->
+            <!--<Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="{StaticResource PhoneForegroundBrush}" />-->
+        </Style>
+        <DataTemplate x:Key="FavoritesTemplate">
+            <Grid Width="480">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="390" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Name="FavoriteButton" Click="FavoriteButton_Click" BorderThickness="0">
+                    <Button.Content>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="300" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding ChannelNumber}" HorizontalAlignment="Center" />
+                                <TextBlock Text="{Binding Callsign}" HorizontalAlignment="Center" />
+                            </StackPanel>
+                            <TextBlock Grid.Column="1" Text="{Binding Title}" TextWrapping="Wrap" Margin="5" VerticalAlignment="Center" />
+                        </Grid>
+                    </Button.Content>
+                </Button>
+                <Button Name="DeleteButton" Click="DeleteButton_Click" Grid.Column="1" Content="-" BorderThickness="1" Width="60" Height="60" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="70" />
+            </Grid.RowDefinitions>
+            <Button VerticalAlignment="Bottom" Grid.Row="0" Content="Dismiss" Height="65" Width="150" FontSize="18" Click="Dismiss_Click" HorizontalAlignment="Right" />
+            <ScrollViewer Grid.Row="1">
+                <ItemsControl
+                        ItemsSource="{Binding}"
+                        ItemTemplate="{StaticResource FavoritesTemplate}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+            <Button Name="_addButton" Click="_addButton_Click" Grid.Row="2" Content="Add Current Channel" Height="75" Width="300" />
+        </Grid>
+    </Grid>
+</UserControl>
